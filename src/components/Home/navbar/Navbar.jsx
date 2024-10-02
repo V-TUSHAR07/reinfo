@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import "./Nav.css";
+import logo from "./reinfosec.png";
+import Card from "../card/Card";
 
 function Navbar() {
   useEffect(() => {
@@ -7,22 +9,18 @@ function Navbar() {
     const closeBtn = document.querySelector("#btn");
     const searchBtn = document.querySelector(".bx-search");
 
-    // Event listener for close button
-    closeBtn.addEventListener("click", () => {
+    const toggleSidebar = () => {
       sidebar.classList.toggle("open");
       menuBtnChange();
-    });
+    };
 
-    // Event listener for search button
-    searchBtn.addEventListener("click", () => {
-      sidebar.classList.toggle("open");
-      menuBtnChange();
-    });
+    closeBtn.addEventListener("click", toggleSidebar);
+    searchBtn.addEventListener("click", toggleSidebar);
 
     // Cleanup event listeners when component unmounts
     return () => {
-      closeBtn.removeEventListener("click", () => {});
-      searchBtn.removeEventListener("click", () => {});
+      closeBtn.removeEventListener("click", toggleSidebar);
+      searchBtn.removeEventListener("click", toggleSidebar);
     };
   }, []);
 
@@ -30,20 +28,25 @@ function Navbar() {
   const menuBtnChange = () => {
     const sidebar = document.querySelector(".sidebar");
     const closeBtn = document.querySelector("#btn");
+    closeBtn.classList.toggle(
+      "bx-menu-alt-right",
+      sidebar.classList.contains("open")
+    );
+    closeBtn.classList.toggle("bx-menu", !sidebar.classList.contains("open"));
+  };
 
-    if (sidebar.classList.contains("open")) {
-      closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");
-    } else {
-      closeBtn.classList.replace("bx-menu-alt-right", "bx-menu");
-    }
+  // Top navbar toggle function
+  const myFunction = () => {
+    const x = document.getElementById("myTopnav");
+    x.className = x.className === "topnav" ? "topnav responsive" : "topnav";
   };
 
   return (
     <div>
       <div className="sidebar">
         <div className="logo-details">
-          {/* <i className="bx bxl-c-plus-plus icon"></i> */}
-          <div className="logo_name">faraday</div>
+          <img src={logo} alt="logo" className="icon small-logo" />
+          <div className="logo_name">Reinfosec</div>
           <i className="bx bx-menu" id="btn"></i>
         </div>
         <ul className="nav-list">
@@ -55,23 +58,16 @@ function Navbar() {
           <li>
             <a href="#">
               <i className="bx bx-grid-alt"></i>
-              <span className="links_name">Dashboard</span>
+              <span className="links_name">Management</span>
             </a>
-            <span className="tooltip">Dashboard</span>
+            <span className="tooltip">Management</span>
           </li>
           <li>
             <a href="#">
-              <i className="bx bx-user"></i>
-              <span className="links_name">User</span>
+              <i className="bx bx-bulb"></i>
+              <span className="links_name">Knowledge Base</span>
             </a>
-            <span className="tooltip">User</span>
-          </li>
-          <li>
-            <a href="#">
-              <i className="bx bx-chat"></i>
-              <span className="links_name">Messages</span>
-            </a>
-            <span className="tooltip">Messages</span>
+            <span className="tooltip">Knowledge Base</span>
           </li>
           <li>
             <a href="#">
@@ -82,21 +78,14 @@ function Navbar() {
           </li>
           <li>
             <a href="#">
-              <i className="bx bx-folder"></i>
-              <span className="links_name">File Manager</span>
+              <i className="bx bx-calendar"></i>
+              <span className="links_name">Planner</span>
             </a>
-            <span className="tooltip">Files</span>
+            <span className="tooltip">Planner</span>
           </li>
           <li>
             <a href="#">
-              <i className="bx bx-cart-alt"></i>
-              <span className="links_name">Order</span>
-            </a>
-            <span className="tooltip">Order</span>
-          </li>
-          <li>
-            <a href="#">
-              <i className="bx bx-heart"></i>
+              <i className="bx bx-file"></i>
               <span className="links_name">Saved</span>
             </a>
             <span className="tooltip">Saved</span>
@@ -109,21 +98,55 @@ function Navbar() {
             <span className="tooltip">Setting</span>
           </li>
           <li className="profile">
-            {/* <div className="profile-details">
-              <img src="/profile.jpg" alt="profileImg" />
-              <div className="name_job">
-                <div className="name">Prem Shahi</div>
-                <div className="job">Web designer</div>
-              </div>
-            </div> */}
-            {/* <i className="bx bx-log-out" id="log_out"></i> */}
+            <div className="profile-details">
+              <img
+                src="https://img.freepik.com/free-photo/young-crazy-man-happy-expression_1194-5236.jpg"
+                alt="profileImg"
+              />
+              <div className="name_job"></div>
+            </div>
+            <i className="bx bx-log-out" id="log_out"></i>
           </li>
         </ul>
       </div>
 
       <section className="home-section">
-        <div className="text">Dashboard</div>
+        <div className="top">
+          <div className="topnav" id="myTopnav">
+            <a href="#workspace">Workspace</a>
+            <a href="#assets">Assets</a>
+            <a href="#services">Services</a>
+            <a href="#vulnerabilities">Vulnerabilities</a>
+            <a className="icon" onClick={myFunction}>
+              <i className="fa fa-bars"></i>
+            </a>
+          </div>
+        </div>
+        <div className="text">
+          <Card />
+        </div>
       </section>
+
+      {/* Additional sections */}
+
+      {Array.from({ length: 3 }, (_, index) => (
+        <section className="home-section" key={index}>
+          <div className="text">Dashboard</div>
+        </section>
+      ))}
+      {/* instead of
+      
+      <section className="home-section">
+  <div className="text">Dashboard</div>
+</section>
+<section className="home-section">
+  <div className="text">Dashboard</div>
+</section>
+<section className="home-section">
+  <div className="text">Dashboard</div>
+</section>
+
+*/}
     </div>
   );
 }

@@ -65,6 +65,114 @@ const Card = () => {
               ],
               borderWidth: 2, // Border thickness
             },
+            {
+              data: chartData, // Data for the pie chart
+              backgroundColor: [
+                "rgba(255, 99, 132, 0.9)", // Critical
+                "rgba(54, 162, 235, 0.9)", // Non-Critical
+              ],
+              borderColor: [
+                "rgba(255, 99, 132, 1)", // Border for Critical
+                "rgba(54, 162, 235, 1)", // Border for Non-Critical
+              ],
+              borderWidth: 2, // Border thickness
+            },
+            {
+              data: chartData1, // Data for the pie chart
+              backgroundColor: [
+                "rgba(255, 99, 132, 0.9)", // Critical
+                "rgba(54, 162, 235, 0.9)", // Non-Critical
+              ],
+              borderColor: [
+                "rgba(255, 99, 132, 1)", // Border for Critical
+                "rgba(54, 162, 235, 1)", // Border for Non-Critical
+              ],
+              borderWidth: 2, // Border thickness
+            },
+            {
+              data: chartData2, // Data for the pie chart
+              backgroundColor: [
+                "rgba(255, 99, 132, 0.9)", // Critical
+                "rgba(54, 162, 235, 0.9)", // Non-Critical
+              ],
+              borderColor: [
+                "rgba(255, 99, 132, 1)", // Border for Critical
+                "rgba(54, 162, 235, 1)", // Border for Non-Critical
+              ],
+              borderWidth: 2, // Border thickness
+            },
+            {
+              data: chartData, // Data for the pie chart
+              backgroundColor: [
+                "rgba(255, 99, 132, 0.9)", // Critical
+                "rgba(54, 162, 235, 0.9)", // Non-Critical
+              ],
+              borderColor: [
+                "rgba(255, 99, 132, 1)", // Border for Critical
+                "rgba(54, 162, 235, 1)", // Border for Non-Critical
+              ],
+              borderWidth: 2, // Border thickness
+            },
+            {
+              data: chartData1, // Data for the pie chart
+              backgroundColor: [
+                "rgba(255, 99, 132, 0.9)", // Critical
+                "rgba(54, 162, 235, 0.9)", // Non-Critical
+              ],
+              borderColor: [
+                "rgba(255, 99, 132, 1)", // Border for Critical
+                "rgba(54, 162, 235, 1)", // Border for Non-Critical
+              ],
+              borderWidth: 2, // Border thickness
+            },
+            {
+              data: chartData2, // Data for the pie chart
+              backgroundColor: [
+                "rgba(255, 99, 132, 0.9)", // Critical
+                "rgba(54, 162, 235, 0.9)", // Non-Critical
+              ],
+              borderColor: [
+                "rgba(255, 99, 132, 1)", // Border for Critical
+                "rgba(54, 162, 235, 1)", // Border for Non-Critical
+              ],
+              borderWidth: 2, // Border thickness
+            },
+            {
+              data: chartData, // Data for the pie chart
+              backgroundColor: [
+                "rgba(255, 99, 132, 0.9)", // Critical
+                "rgba(54, 162, 235, 0.9)", // Non-Critical
+              ],
+              borderColor: [
+                "rgba(255, 99, 132, 1)", // Border for Critical
+                "rgba(54, 162, 235, 1)", // Border for Non-Critical
+              ],
+              borderWidth: 2, // Border thickness
+            },
+            {
+              data: chartData1, // Data for the pie chart
+              backgroundColor: [
+                "rgba(255, 99, 132, 0.9)", // Critical
+                "rgba(54, 162, 235, 0.9)", // Non-Critical
+              ],
+              borderColor: [
+                "rgba(255, 99, 132, 1)", // Border for Critical
+                "rgba(54, 162, 235, 1)", // Border for Non-Critical
+              ],
+              borderWidth: 2, // Border thickness
+            },
+            {
+              data: chartData2, // Data for the pie chart
+              backgroundColor: [
+                "rgba(255, 99, 132, 0.9)", // Critical
+                "rgba(54, 162, 235, 0.9)", // Non-Critical
+              ],
+              borderColor: [
+                "rgba(255, 99, 132, 1)", // Border for Critical
+                "rgba(54, 162, 235, 1)", // Border for Non-Critical
+              ],
+              borderWidth: 2, // Border thickness
+            },
           ],
         },
         options: {
@@ -254,3 +362,209 @@ const Card = () => {
 };
 
 export default Card;
+
+// import React, { useEffect, useState } from "react";
+// import * as d3 from "d3";
+
+// const Card = () => {
+//   const [tasks, setTasks] = useState([
+//     {
+//       id: 1,
+//       name: "Task 1",
+//       start: new Date(2024, 9, 1),
+//       end: new Date(2024, 9, 5),
+//     },
+//     {
+//       id: 2,
+//       name: "Task 2",
+//       start: new Date(2024, 9, 3),
+//       end: new Date(2024, 9, 7),
+//     },
+//     {
+//       id: 3,
+//       name: "Task 3",
+//       start: new Date(2024, 9, 2),
+//       end: new Date(2024, 9, 8),
+//     },
+//   ]);
+
+//   const [taskName, setTaskName] = useState("");
+//   const [startDate, setStartDate] = useState("");
+//   const [endDate, setEndDate] = useState("");
+//   const [editingTaskId, setEditingTaskId] = useState(null);
+
+//   useEffect(() => {
+//     drawChart();
+//   }, [tasks]);
+
+//   const drawChart = () => {
+//     const svg = d3.select("#ganttChart").select("svg").remove(); // Clear previous chart
+
+//     const newSvg = d3
+//       .select("#ganttChart")
+//       .append("svg")
+//       .attr("width", 800)
+//       .attr("height", 300)
+//       .style("border", "1px solid #ccc")
+//       .style("background", "#f9f9f9")
+//       .style("border-radius", "8px");
+
+//     const x = d3
+//       .scaleTime()
+//       .domain([new Date(2024, 9, 1), new Date(2024, 9, 15)])
+//       .range([50, 750]);
+
+//     const y = d3
+//       .scaleBand()
+//       .domain(tasks.map((task) => task.name))
+//       .range([50, 250])
+//       .padding(0.2);
+
+//     // Adding gridlines
+//     newSvg
+//       .append("g")
+//       .attr("class", "grid")
+//       .attr("transform", "translate(0, 250)")
+//       .call(d3.axisBottom(x).ticks(10).tickSize(-200).tickFormat(""));
+
+//     // Adding tasks
+//     newSvg
+//       .selectAll(".task")
+//       .data(tasks)
+//       .enter()
+//       .append("rect")
+//       .attr("class", "task")
+//       .attr("x", (d) => x(d.start))
+//       .attr("y", (d) => y(d.name))
+//       .attr("width", (d) => x(d.end) - x(d.start))
+//       .attr("height", y.bandwidth())
+//       .attr("fill", (d) => (d.id === editingTaskId ? "orange" : "steelblue"))
+//       .attr("rx", 5)
+//       .attr("ry", 5)
+//       .on("click", (event, d) => handleEditTask(d.id));
+
+//     // Adding x-axis
+//     newSvg
+//       .append("g")
+//       .attr("transform", "translate(0,250)")
+//       .call(d3.axisBottom(x).ticks(10).tickFormat(d3.timeFormat("%Y-%m-%d")))
+//       .selectAll("text")
+//       .style("text-anchor", "end")
+//       .attr("dx", "-0.8em")
+//       .attr("dy", ".15em")
+//       .attr("transform", "rotate(-45)");
+
+//     // Adding y-axis
+//     newSvg
+//       .append("g")
+//       .attr("transform", "translate(50,0)")
+//       .call(d3.axisLeft(y));
+//   };
+
+//   const handleAddTask = (e) => {
+//     e.preventDefault();
+//     if (!taskName || !startDate || !endDate) return;
+
+//     const newTask = {
+//       id: tasks.length + 1,
+//       name: taskName,
+//       start: new Date(startDate),
+//       end: new Date(endDate),
+//     };
+
+//     setTasks([...tasks, newTask]);
+//     resetForm();
+//   };
+
+//   const handleEditTask = (id) => {
+//     const taskToEdit = tasks.find((task) => task.id === id);
+//     if (taskToEdit) {
+//       setTaskName(taskToEdit.name);
+//       setStartDate(taskToEdit.start.toISOString().split("T")[0]);
+//       setEndDate(taskToEdit.end.toISOString().split("T")[0]);
+//       setEditingTaskId(id);
+//     }
+//   };
+
+//   const handleUpdateTask = (e) => {
+//     e.preventDefault();
+//     if (!taskName || !startDate || !endDate || editingTaskId === null) return;
+
+//     const updatedTasks = tasks.map((task) =>
+//       task.id === editingTaskId
+//         ? {
+//             ...task,
+//             name: taskName,
+//             start: new Date(startDate),
+//             end: new Date(endDate),
+//           }
+//         : task
+//     );
+
+//     setTasks(updatedTasks);
+//     resetForm();
+//   };
+
+//   const handleDeleteTask = (id) => {
+//     setTasks(tasks.filter((task) => task.id !== id));
+//   };
+
+//   const resetForm = () => {
+//     setTaskName("");
+//     setStartDate("");
+//     setEndDate("");
+//     setEditingTaskId(null);
+//   };
+
+//   return (
+//     <div style={{ padding: "20px" }}>
+//       <h2>Gantt Chart with Dynamic Tasks</h2>
+//       <form
+//         onSubmit={editingTaskId ? handleUpdateTask : handleAddTask}
+//         style={{ marginBottom: "20px" }}
+//       >
+//         <input
+//           type="text"
+//           placeholder="Task Name"
+//           value={taskName}
+//           onChange={(e) => setTaskName(e.target.value)}
+//           required
+//         />
+//         <input
+//           type="date"
+//           value={startDate}
+//           onChange={(e) => setStartDate(e.target.value)}
+//           required
+//         />
+//         <input
+//           type="date"
+//           value={endDate}
+//           onChange={(e) => setEndDate(e.target.value)}
+//           required
+//         />
+//         <button type="submit">
+//           {editingTaskId ? "Update Task" : "Add Task"}
+//         </button>
+//         {editingTaskId && (
+//           <button type="button" onClick={resetForm}>
+//             Cancel
+//           </button>
+//         )}
+//       </form>
+//       <div id="ganttChart"></div>
+//       <h3>Current Tasks</h3>
+//       <ul>
+//         {tasks.map((task) => (
+//           <li key={task.id}>
+//             {task.name} - {task.start.toISOString().split("T")[0]} to{" "}
+//             {task.end.toISOString().split("T")[0]}
+//             <button onClick={() => handleEditTask(task.id)}>Edit</button>
+//             <button onClick={() => handleDeleteTask(task.id)}>Delete</button>
+//           </li>
+//         ))}
+//       </ul>
+//     </div>
+//   );
+// };
+
+// export default Card;

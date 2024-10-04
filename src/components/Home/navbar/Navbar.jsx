@@ -126,27 +126,6 @@ function Navbar() {
           <Card />
         </div>
       </section>
-
-      {/* Additional sections */}
-
-      {Array.from({ length: 3 }, (_, index) => (
-        <section className="home-section" key={index}>
-          <div className="text">Dashboard</div>
-        </section>
-      ))}
-      {/* instead of
-      
-      <section className="home-section">
-  <div className="text">Dashboard</div>
-</section>
-<section className="home-section">
-  <div className="text">Dashboard</div>
-</section>
-<section className="home-section">
-  <div className="text">Dashboard</div>
-</section>
-
-*/}
     </div>
   );
 }

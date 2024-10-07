@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import "./Nav.css";
 import logo from "./reinfosec.png";
 import Card from "../card/Card";
+import Timeline from "../time line chart/Timeline";
 
 function Navbar() {
   useEffect(() => {
@@ -125,28 +126,8 @@ function Navbar() {
         <div className="text">
           <Card />
         </div>
+        <div className="text"><Timeline /></div>
       </section>
-
-      {/* Additional sections */}
-
-      {Array.from({ length: 3 }, (_, index) => (
-        <section className="home-section" key={index}>
-          <div className="text">Dashboard</div>
-        </section>
-      ))}
-      {/* instead of
-      
-      <section className="home-section">
-  <div className="text">Dashboard</div>
-</section>
-<section className="home-section">
-  <div className="text">Dashboard</div>
-</section>
-<section className="home-section">
-  <div className="text">Dashboard</div>
-</section>
-
-*/}
     </div>
   );
 }

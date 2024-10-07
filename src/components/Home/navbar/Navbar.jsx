@@ -3,7 +3,8 @@ import "./Nav.css";
 import logo from "./reinfosec.png";
 import Card from "../card/Card";
 import Timeline from "../time line chart/Timeline";
-
+// import TodoList from "../todo/TodoList";
+import SeperateCard from "../card/SeperateCard"
 function Navbar() {
   useEffect(() => {
     const sidebar = document.querySelector(".sidebar");
@@ -127,6 +128,8 @@ function Navbar() {
           <Card />
         </div>
         <div className="text"><Timeline /></div>
+        {/* <div className="text"><TodoList /> </div> */}
+        <div className="text"><SeperateCard /> </div>
       </section>
     </div>
   );

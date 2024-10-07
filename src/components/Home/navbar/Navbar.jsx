@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import "./Nav.css";
 import logo from "./reinfosec.png";
 import Card from "../card/Card";
+import Timeline from "../time line chart/Timeline";
 
 function Navbar() {
   useEffect(() => {
@@ -125,6 +126,7 @@ function Navbar() {
         <div className="text">
           <Card />
         </div>
+        <div className="text"><Timeline /></div>
       </section>
     </div>
   );

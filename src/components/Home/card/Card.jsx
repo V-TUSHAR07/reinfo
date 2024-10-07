@@ -1,10 +1,41 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Chart, PieController, ArcElement, Tooltip, Legend } from "chart.js";
+import { FaStar } from "react-icons/fa";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 // Register necessary Chart.js components
 Chart.register(PieController, ArcElement, Tooltip, Legend);
 
 const Card = () => {
+  // form..................
+
+  const [isFormVisible, setIsFormVisible] = useState(false);
+  const [workspaceName, setWorkspaceName] = useState("");
+  const [customerName, setCustomerName] = useState("");
+  const [description, setDescription] = useState("");
+  const [importance, setImportance] = useState(0);
+  const [hover, setHover] = useState(null);
+  const [scopeTarget, setScopeTarget] = useState("");
+  const [dateRange, setDateRange] = useState([null, null]);
+  const [startDate, endDate] = dateRange;
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log({
+      workspaceName,
+      customerName,
+      description,
+      importance,
+      scopeTarget,
+      startDate,
+      endDate,
+    });
+    // Hide form after submission
+    setIsFormVisible(false);
+  };
+  // end form..................
+
   // Use an array of refs to store references for multiple chart canvases
   const chartRefs = useRef([]);
 
@@ -239,7 +270,10 @@ const Card = () => {
       {/* Button group container */}
       <div className="flex justify-between items-center mb-6 ">
         <div className="flex space-x-12">
-          <button className="bg-gray-800 text-white py-[10px] px-8 text-xs rounded-[40px] shadow-md hover:bg-black hover:text-black  transition duration-300 flex items-center space-x-2">
+          <button
+            onClick={() => setIsFormVisible(true)}
+            className="bg-gray-800 text-white py-[10px] px-8 text-xs rounded-[40px] shadow-md hover:bg-black hover:text-black transition duration-300 flex items-center space-x-2"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -357,214 +391,122 @@ const Card = () => {
           </div>
         ))}
       </div>
+
+      {/* form */}
+
+      {isFormVisible && (
+        <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center">
+          <div className="bg-black text-white p-8 rounded-lg max-w-3xl w-full mx-auto shadow-lg">
+            <form className="space-y-6" onSubmit={handleSubmit}>
+              <h2 className="text-2xl font-bold text-center mb-6">
+                Create Workspace
+              </h2>
+
+              <div className="flex justify-between items-center mb-6">
+                <button
+                  type="button"
+                  onClick={() => setIsFormVisible(false)}
+                  className="bg-gray-700 hover:bg-gray-600 text-white py-2 px-6 rounded-md transition text-sm"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="bg-green-600 hover:bg-green-500 text-white py-2 px-6 rounded-md transition text-sm"
+                >
+                  Save
+                </button>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="mb-4">
+                  <label className="text-sm mb-2 block">Workspace Name</label>
+                  <input
+                    type="text"
+                    placeholder="Workspace Name"
+                    value={workspaceName}
+                    onChange={(e) => setWorkspaceName(e.target.value)}
+                    className="bg-gray-800 border border-gray-700 text-white p-2 rounded-md w-full text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+                  />
+                </div>
+
+                <div className="mb-4">
+                  <label className="text-sm mb-2 block">Customer Name</label>
+                  <input
+                    type="text"
+                    placeholder="Customer Name"
+                    value={customerName}
+                    onChange={(e) => setCustomerName(e.target.value)}
+                    className="bg-gray-800 border border-gray-700 text-white p-2 rounded-md w-full text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+                  />
+                </div>
+              </div>
+
+              <div className="mb-4">
+                <label className="text-sm mb-2 block">Description</label>
+                <textarea
+                  placeholder="Describe the workspace used for..."
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  className="bg-gray-800 border border-gray-700 text-white p-2 rounded-md w-full text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+                />
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="mb-4">
+                  <label className="text-sm mb-2 block">Date Range</label>
+                  <DatePicker
+                    selectsRange
+                    startDate={startDate}
+                    endDate={endDate}
+                    onChange={(update) => setDateRange(update)}
+                    isClearable={true}
+                    placeholderText="DD/MM/YY - DD/MM/YY"
+                    className="bg-gray-800 border border-gray-700 text-white p-2 rounded-md w-full text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+                  />
+                </div>
+
+                <div className="mb-4">
+                  <label className="text-sm mb-2 block">Scope Target</label>
+                  <input
+                    type="text"
+                    placeholder="Scope Target"
+                    value={scopeTarget}
+                    onChange={(e) => setScopeTarget(e.target.value)}
+                    className="bg-gray-800 border border-gray-700 text-white p-2 rounded-md w-full text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+                  />
+                </div>
+              </div>
+
+              <div className="mb-4">
+                <label className="text-sm mb-2 block">Importance</label>
+                <div className="flex items-center">
+                  {[...Array(5)].map((star, index) => {
+                    const ratingValue = index + 1;
+                    return (
+                      <FaStar
+                        key={index}
+                        size={24}
+                        className={`cursor-pointer ${
+                          ratingValue <= (hover || importance)
+                            ? "text-yellow-500"
+                            : "text-gray-600"
+                        }`}
+                        onClick={() => setImportance(ratingValue)}
+                        onMouseEnter={() => setHover(ratingValue)}
+                        onMouseLeave={() => setHover(null)}
+                      />
+                    );
+                  })}
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+      {/* end form */}
     </div>
   );
 };
 
 export default Card;
-
-// import React, { useEffect, useState } from "react";
-// import * as d3 from "d3";
-
-// const Card = () => {
-//   const [tasks, setTasks] = useState([
-//     {
-//       id: 1,
-//       name: "Task 1",
-//       start: new Date(2024, 9, 1),
-//       end: new Date(2024, 9, 5),
-//     },
-//     {
-//       id: 2,
-//       name: "Task 2",
-//       start: new Date(2024, 9, 3),
-//       end: new Date(2024, 9, 7),
-//     },
-//     {
-//       id: 3,
-//       name: "Task 3",
-//       start: new Date(2024, 9, 2),
-//       end: new Date(2024, 9, 8),
-//     },
-//   ]);
-
-//   const [taskName, setTaskName] = useState("");
-//   const [startDate, setStartDate] = useState("");
-//   const [endDate, setEndDate] = useState("");
-//   const [editingTaskId, setEditingTaskId] = useState(null);
-
-//   useEffect(() => {
-//     drawChart();
-//   }, [tasks]);
-
-//   const drawChart = () => {
-//     const svg = d3.select("#ganttChart").select("svg").remove(); // Clear previous chart
-
-//     const newSvg = d3
-//       .select("#ganttChart")
-//       .append("svg")
-//       .attr("width", 800)
-//       .attr("height", 300)
-//       .style("border", "1px solid #ccc")
-//       .style("background", "#f9f9f9")
-//       .style("border-radius", "8px");
-
-//     const x = d3
-//       .scaleTime()
-//       .domain([new Date(2024, 9, 1), new Date(2024, 9, 15)])
-//       .range([50, 750]);
-
-//     const y = d3
-//       .scaleBand()
-//       .domain(tasks.map((task) => task.name))
-//       .range([50, 250])
-//       .padding(0.2);
-
-//     // Adding gridlines
-//     newSvg
-//       .append("g")
-//       .attr("class", "grid")
-//       .attr("transform", "translate(0, 250)")
-//       .call(d3.axisBottom(x).ticks(10).tickSize(-200).tickFormat(""));
-
-//     // Adding tasks
-//     newSvg
-//       .selectAll(".task")
-//       .data(tasks)
-//       .enter()
-//       .append("rect")
-//       .attr("class", "task")
-//       .attr("x", (d) => x(d.start))
-//       .attr("y", (d) => y(d.name))
-//       .attr("width", (d) => x(d.end) - x(d.start))
-//       .attr("height", y.bandwidth())
-//       .attr("fill", (d) => (d.id === editingTaskId ? "orange" : "steelblue"))
-//       .attr("rx", 5)
-//       .attr("ry", 5)
-//       .on("click", (event, d) => handleEditTask(d.id));
-
-//     // Adding x-axis
-//     newSvg
-//       .append("g")
-//       .attr("transform", "translate(0,250)")
-//       .call(d3.axisBottom(x).ticks(10).tickFormat(d3.timeFormat("%Y-%m-%d")))
-//       .selectAll("text")
-//       .style("text-anchor", "end")
-//       .attr("dx", "-0.8em")
-//       .attr("dy", ".15em")
-//       .attr("transform", "rotate(-45)");
-
-//     // Adding y-axis
-//     newSvg
-//       .append("g")
-//       .attr("transform", "translate(50,0)")
-//       .call(d3.axisLeft(y));
-//   };
-
-//   const handleAddTask = (e) => {
-//     e.preventDefault();
-//     if (!taskName || !startDate || !endDate) return;
-
-//     const newTask = {
-//       id: tasks.length + 1,
-//       name: taskName,
-//       start: new Date(startDate),
-//       end: new Date(endDate),
-//     };
-
-//     setTasks([...tasks, newTask]);
-//     resetForm();
-//   };
-
-//   const handleEditTask = (id) => {
-//     const taskToEdit = tasks.find((task) => task.id === id);
-//     if (taskToEdit) {
-//       setTaskName(taskToEdit.name);
-//       setStartDate(taskToEdit.start.toISOString().split("T")[0]);
-//       setEndDate(taskToEdit.end.toISOString().split("T")[0]);
-//       setEditingTaskId(id);
-//     }
-//   };
-
-//   const handleUpdateTask = (e) => {
-//     e.preventDefault();
-//     if (!taskName || !startDate || !endDate || editingTaskId === null) return;
-
-//     const updatedTasks = tasks.map((task) =>
-//       task.id === editingTaskId
-//         ? {
-//             ...task,
-//             name: taskName,
-//             start: new Date(startDate),
-//             end: new Date(endDate),
-//           }
-//         : task
-//     );
-
-//     setTasks(updatedTasks);
-//     resetForm();
-//   };
-
-//   const handleDeleteTask = (id) => {
-//     setTasks(tasks.filter((task) => task.id !== id));
-//   };
-
-//   const resetForm = () => {
-//     setTaskName("");
-//     setStartDate("");
-//     setEndDate("");
-//     setEditingTaskId(null);
-//   };
-
-//   return (
-//     <div style={{ padding: "20px" }}>
-//       <h2>Gantt Chart with Dynamic Tasks</h2>
-//       <form
-//         onSubmit={editingTaskId ? handleUpdateTask : handleAddTask}
-//         style={{ marginBottom: "20px" }}
-//       >
-//         <input
-//           type="text"
-//           placeholder="Task Name"
-//           value={taskName}
-//           onChange={(e) => setTaskName(e.target.value)}
-//           required
-//         />
-//         <input
-//           type="date"
-//           value={startDate}
-//           onChange={(e) => setStartDate(e.target.value)}
-//           required
-//         />
-//         <input
-//           type="date"
-//           value={endDate}
-//           onChange={(e) => setEndDate(e.target.value)}
-//           required
-//         />
-//         <button type="submit">
-//           {editingTaskId ? "Update Task" : "Add Task"}
-//         </button>
-//         {editingTaskId && (
-//           <button type="button" onClick={resetForm}>
-//             Cancel
-//           </button>
-//         )}
-//       </form>
-//       <div id="ganttChart"></div>
-//       <h3>Current Tasks</h3>
-//       <ul>
-//         {tasks.map((task) => (
-//           <li key={task.id}>
-//             {task.name} - {task.start.toISOString().split("T")[0]} to{" "}
-//             {task.end.toISOString().split("T")[0]}
-//             <button onClick={() => handleEditTask(task.id)}>Edit</button>
-//             <button onClick={() => handleDeleteTask(task.id)}>Delete</button>
-//           </li>
-//         ))}
-//       </ul>
-//     </div>
-//   );
-// };
-
-// export default Card;

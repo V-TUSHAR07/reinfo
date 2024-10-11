@@ -1,14 +1,12 @@
 import React, { useEffect } from "react";
 import "./Nav.css";
 import logo from "./reinfosec.png";
-// import Card from "../../../../react-app/src/components/Home/card/Card";
-import No_clints from "../../../../../admin-clint/src/components/clients/No_clients";
-import { ganttData } from "../../../data/ganttData";
-import Chart from "../../GanttChart/Chart";
+import Card from "../Home/card/Card";
+// import No_clints from "../clients/No_clients";
 
-// import Timeline from "../../../../react-app/src/components/Home/time line chart/Timeline";
+import Timeline from "../Home/time line chart/Timeline";
 // import TodoList from "../todo/TodoList";
-// import SeperateCard from "../../../../react-app/src/components/Home/card/SeperateCard"
+import SeperateCard from "../Home/card/SeperateCard"
 function Navbar() {
   useEffect(() => {
     const sidebar = document.querySelector(".sidebar");
@@ -129,11 +127,10 @@ function Navbar() {
           </div>
         </div>
         <div className="text">
-          <No_clints />
+          <Card />
         </div>
-        {/* <div className="text"><Timeline /></div> */}
-        {/* <div className="text"><TodoList /> </div> */}
-        {/* <div className="text"><SeperateCard /> </div> */}
+        <div className="text"><Timeline /></div>
+        <div className="text"><SeperateCard /> </div>
       </section>
     </div>
   );

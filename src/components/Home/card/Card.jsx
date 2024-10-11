@@ -266,7 +266,7 @@ const Card = () => {
   ];
 
   return (
-    <div className="mb-6 ml-6">
+    <div className="mb-6 justify-center items-center">
       {/* Button group container */}
       <div className="flex justify-between items-center mb-6 ">
         <div className="flex space-x-12">
@@ -330,7 +330,7 @@ const Card = () => {
       </div>
 
       {/* Outer container: Responsive grid layout with smaller gaps and responsive sizes */}
-      <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-3 gap-4 m-auto">
         {/* Loop through cardsData and generate each card */}
         {cardsData.map((card, cardIndex) => (
           <div

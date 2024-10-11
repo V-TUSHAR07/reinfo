@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./cards.css"; // Optional: Add your custom styles here
+// import "./cards.css"; // Optional: Add your custom styles here
 
 const SeperateCard = () => {
   const [tasks, setTasks] = useState({ inProgress: [], done: [], Todo: [] });
@@ -48,8 +48,8 @@ const SeperateCard = () => {
         newTask.status === "Completed"
           ? "done"
           : newTask.status === "In Progress"
-          ? "inProgress"
-          : "Todo";
+            ? "inProgress"
+            : "Todo";
 
       updatedTasks[targetColumn] = updatedTasks[targetColumn].filter(
         (task) => task.id !== newTask.id
@@ -116,8 +116,8 @@ const SeperateCard = () => {
         newStatus === "Completed"
           ? "done"
           : newStatus === "In Progress"
-          ? "inProgress"
-          : "Todo";
+            ? "inProgress"
+            : "Todo";
 
       updatedTasks[targetColumn] = updatedTasks[targetColumn].filter(
         (t) => t.id !== updatedTask.id
@@ -131,85 +131,85 @@ const SeperateCard = () => {
   return (
     <div className="flex space-x-4 p-4">
       <div className="flex space-x-8 p-8 bg-gray-900 min-h-screen">
-  {["Todo", "inProgress", "done"].map((column) => (
-    <div
-      key={column}
-      className="bg-gray-800 w-1/3 rounded-xl p-6 shadow-xl border border-gray-700"
-    >
-      <h3 className="font-bold text-lg mb-4 text-gray-200 tracking-wider uppercase">
-        {column === "Todo"
-          ? "To Do"
-          : column === "inProgress"
-          ? "In Progress"
-          : "Completed"}
-      </h3>
-
-      {column === "Todo" && (
-        <div className="border border-dashed border-gray-600 p-4 mb-5 rounded-lg bg-gray-700 hover:bg-gray-600 transition duration-200">
-          <button
-            onClick={() => setIsModalOpen(true)}
-            className="text-blue-400 text-base hover:text-blue-300 font-semibold"
+        {["Todo", "inProgress", "done"].map((column) => (
+          <div
+            key={column}
+            className="bg-gray-800 w-1/3 rounded-xl p-6 shadow-xl border border-gray-700"
           >
-            + Create Task
-          </button>
-        </div>
-      )}
+            <h3 className="font-bold text-lg mb-4 text-gray-200 tracking-wider uppercase">
+              {column === "Todo"
+                ? "To Do"
+                : column === "inProgress"
+                  ? "In Progress"
+                  : "Completed"}
+            </h3>
 
-      {tasks[column].map((task) => (
-        <div
-          key={task.id}
-          className="bg-gray-700 border border-gray-600 rounded-xl p-5 mb-4 shadow-md transition duration-300 hover:shadow-lg"
-        >
-          <h4 className="font-semibold text-gray-100 text-lg mb-2">
-            {task.taskName}
-          </h4>
-          <p className="text-gray-400 text-sm mb-2">{task.taskDesc}</p>
-          <p className="text-gray-500 text-xs mb-1">
-            Duration: {task.duration}
-          </p>
-          <p className="text-gray-500 text-xs">Status: {task.status}</p>
-
-          <div className="flex justify-between items-center mt-4 space-x-6 text-sm">
-            {column !== "done" && (
-              <button
-                onClick={() => startEditTask(task)}
-                className="text-yellow-400 hover:text-yellow-300 font-medium transition"
-              >
-                Edit
-              </button>
-            )}
-            <button
-              onClick={() => deleteTask(task.id, column)}
-              className="text-red-500 hover:text-red-400 font-medium transition"
-            >
-              Delete
-            </button>
             {column === "Todo" && (
-              <button
-                onClick={() => changeTaskStatus(task, "In Progress")}
-                className="text-blue-400 hover:text-blue-300 font-medium transition"
-              >
-                Start
-              </button>
+              <div className="border border-dashed border-gray-600 p-4 mb-5 rounded-lg bg-gray-700 hover:bg-gray-600 transition duration-200">
+                <button
+                  onClick={() => setIsModalOpen(true)}
+                  className="text-blue-400 text-base hover:text-blue-300 font-semibold"
+                >
+                  + Create Task
+                </button>
+              </div>
             )}
-            {column === "inProgress" && (
-              <button
-                onClick={() => changeTaskStatus(task, "Completed")}
-                className="text-green-400 hover:text-green-300 font-medium transition"
+
+            {tasks[column].map((task) => (
+              <div
+                key={task.id}
+                className="bg-gray-700 border border-gray-600 rounded-xl p-5 mb-4 shadow-md transition duration-300 hover:shadow-lg"
               >
-                Complete
-              </button>
+                <h4 className="font-semibold text-gray-100 text-lg mb-2">
+                  {task.taskName}
+                </h4>
+                <p className="text-gray-400 text-sm mb-2">{task.taskDesc}</p>
+                <p className="text-gray-500 text-xs mb-1">
+                  Duration: {task.duration}
+                </p>
+                <p className="text-gray-500 text-xs">Status: {task.status}</p>
+
+                <div className="flex justify-between items-center mt-4 space-x-6 text-sm">
+                  {column !== "done" && (
+                    <button
+                      onClick={() => startEditTask(task)}
+                      className="text-yellow-400 hover:text-yellow-300 font-medium transition"
+                    >
+                      Edit
+                    </button>
+                  )}
+                  <button
+                    onClick={() => deleteTask(task.id, column)}
+                    className="text-red-500 hover:text-red-400 font-medium transition"
+                  >
+                    Delete
+                  </button>
+                  {column === "Todo" && (
+                    <button
+                      onClick={() => changeTaskStatus(task, "In Progress")}
+                      className="text-blue-400 hover:text-blue-300 font-medium transition"
+                    >
+                      Start
+                    </button>
+                  )}
+                  {column === "inProgress" && (
+                    <button
+                      onClick={() => changeTaskStatus(task, "Completed")}
+                      className="text-green-400 hover:text-green-300 font-medium transition"
+                    >
+                      Complete
+                    </button>
+                  )}
+                </div>
+              </div>
+            ))}
+
+            {tasks[column].length === 0 && (
+              <p className="text-gray-500 text-base">No tasks available</p>
             )}
           </div>
-        </div>
-      ))}
-
-      {tasks[column].length === 0 && (
-        <p className="text-gray-500 text-base">No tasks available</p>
-      )}
-    </div>
-  ))}
-</div>
+        ))}
+      </div>
 
 
       {/* Modal for adding/updating tasks */}

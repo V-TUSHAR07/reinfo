@@ -11,10 +11,6 @@
     "chart.js": "^4.4.4",
     "chartjs-plugin-dragdata": "^2.3.1",
     "chartjs-plugin-style": "^0.5.0",
-
-    "date-fns": "^4.1.0",
-    "dhtmlx-gantt": "^8.0.10",
-    "flowbite-react": "^0.10.2",
     "gantt-task-react": "^0.3.9",
 
     "d3": "^7.9.0",

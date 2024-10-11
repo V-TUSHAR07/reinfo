@@ -3,6 +3,8 @@ import "./Nav.css";
 import logo from "./reinfosec.png";
 import Card from "../card/Card";
 import Timeline from "../time line chart/Timeline";
+import { ganttData } from "../../../data/ganttData";
+import Chart from "../../GanttChart/Chart";
 
 function Navbar() {
   useEffect(() => {

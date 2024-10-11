@@ -5,6 +5,7 @@
     text-transform: uppercase;
     letter-spacing: 4px;
     line-height: 23px;
+    width: 1250px;
 }
 
 /* --- Start progress bar --- */
@@ -145,10 +146,11 @@
     letter-spacing: 1px;
 }
 
-#progress-content-section .section-content p {
+#progress-content-section .section-content table {
     font-size: 16px;
     line-height: 1.8em;
-    color: #ddd; /* Light gray text for paragraphs */
+    color: #fff; /* Light gray text for paragraphs */
+    min-width: 100%;
 }
 
 #progress-content-section .section-content {
